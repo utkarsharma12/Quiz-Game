@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <link rel="stylesheet" href="quizpage.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Quiz Game</h2>
+        <div class="quiz-question"></div>
+        <div id="feedback" style="margin-top: 10px; font-weight: bold;"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the capital of France?", options: ["Berlin", "Madrid", "Paris", "Rome"], answer: "C" },
+            { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], answer: "B" },
+            { question: "What is the capital of Spain?", options: ["Lisbon", "Madrid", "Barcelona", "Seville"], answer: "B" },
+            { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], answer: "B" },
+            { question: "Who wrote 'Hamlet'?", options: ["Shakespeare", "Milton", "Chaucer", "Wordsworth"], answer: "A" },
+            { question: "What is the capital of Italy?", options: ["Rome", "Venice", "Florence", "Milan"], answer: "A" },
+            { question: "What is the square root of 16?", options: ["2", "4", "8", "6"], answer: "B" },
+            { question: "Which gas do plants absorb from the atmosphere?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"], answer: "B" },
+            { question: "What is the capital of Germany?", options: ["Berlin", "Munich", "Hamburg", "Frankfurt"], answer: "A" },
+            { question: "What is 10 / 2?", options: ["3", "4", "5", "6"], answer: "C" },
+            { question: "Who painted the Mona Lisa?", options: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Donatello"], answer: "B" },
+            { question: "Which planet is the largest?", options: ["Earth", "Venus", "Jupiter", "Saturn"], answer: "C" },
+            { question: "What is the chemical symbol for water?", options: ["H2", "O2", "H2O", "OH"], answer: "C" },
+            { question: "Who discovered gravity?", options: ["Newton", "Einstein", "Galileo", "Hawking"], answer: "A" },
+            { question: "What is the capital of England?", options: ["Manchester", "London", "Birmingham", "Liverpool"], answer: "B" },
+            { question: "What is 3 * 3?", options: ["6", "9", "12", "15"], answer: "B" },
+            { question: "What is the smallest prime number?", options: ["1", "2", "3", "5"], answer: "B" },
+            { question: "Which continent is Australia in?", options: ["Asia", "Europe", "Australia", "Africa"], answer: "C" },
+            { question: "What is the capital of Canada?", options: ["Toronto", "Ottawa", "Montreal", "Vancouver"], answer: "B" },
+            { question: "Who developed the theory of relativity?", options: ["Newton", "Einstein", "Bohr", "Hawking"], answer: "B" },
+            { question: "Which ocean is the largest?", options: ["Atlantic", "Indian", "Pacific", "Arctic"], answer: "C" },
+            { question: "What is the boiling point of water in Celsius?", options: ["90", "100", "110", "120"], answer: "B" },
+            { question: "Which country is known as the Land of the Rising Sun?", options: ["China", "Japan", "India", "Thailand"], answer: "B" },
+            { question: "What is the currency of the United States?", options: ["Dollar", "Euro", "Pound", "Yen"], answer: "A" },
+            { question: "Which is the smallest continent?", options: ["Asia", "Australia", "Europe", "Africa"], answer: "B" },
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const quizQuestion = document.querySelector('.quiz-question');
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = ''; // Clear feedback on new question
+
+            if (currentQuestion < questions.length) {
+                const questionData = questions[currentQuestion];
+                quizQuestion.innerHTML = `
+                    <p>${currentQuestion + 1}. ${questionData.question}</p>
+                    ${questionData.options.map((opt, index) => `
+                        <button onclick="selectAnswer('${String.fromCharCode(65 + index)}')">${String.fromCharCode(65 + index)}) ${opt}</button>
+                    `).join('')}
+                `;
+            } else {
+                quizQuestion.innerHTML = `
+                    <p>You have completed all questions!</p>
+                    <button onclick="submitQuiz()">Submit</button>
+                `;
+            }
+        }
+
+        function selectAnswer(answer) {
+            const feedback = document.getElementById('feedback');
+            if (answer === questions[currentQuestion].answer) {
+                feedback.textContent = "Correct!";
+                feedback.style.color = "green";
+                score++;
+            } else {
+                feedback.textContent = "Wrong answer. Try again!";
+                feedback.style.color = "red";
+            }
+            currentQuestion++;
+            setTimeout(loadQuestion, 1000); // Load next question after 1 second
+        }
+
+        function submitQuiz() {
+            alert(`Quiz Complete! Your score is: ${score} / ${questions.length}`);
+            
+        }
+
+        loadQuestion();
+    </script>
+
+    <style>
+        /* Basic styling for quiz page */
+        .quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .quiz-question p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .quiz-question button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</body>
+</html>

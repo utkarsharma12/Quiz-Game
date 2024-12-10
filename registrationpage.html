@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="registrationpage.css">
+    <script src="registrationpage.js"></script> <!-- Link to auth.js -->
+</head>
+<body>
+    <div class="login-container">
+        <h2>Register</h2>
+        <form id="registerForm" action="#" method="POST" onsubmit="registerUser(event)">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Choose a username">
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Choose a password">
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <p class="login-link">Already have an account? <a href="loginpage2.html">Login here</a></p>
+        </form>
+    </div>
+
+    <script>
+        function registerUser(event) {
+            event.preventDefault();
+
+            // Retrieve user data from input fields
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Save data in localStorage (for demonstration purposes only)
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+
+            alert("Registration successful! Redirecting to login page...");
+            window.location.href = "loginpage2.html"; // Redirect to login page after registration
+        }
+    </script>
+</body>
+</html>
